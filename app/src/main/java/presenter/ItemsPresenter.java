@@ -4,17 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Country;
+import model.Item;
 import views.BaseView;
 
 /**
  * Created by david on 2/14/16.
  */
-public interface CountriesPresenter extends BasePresenter {
+public interface ItemsPresenter extends BasePresenter {
 
     interface View extends BaseView {
-        void showCountries(List<Country> list);
+        void showItems(List<Item> list);
+
+        void showNoEntriesView();
     }
 
-    void getCountryList();
+    void getItemsList();
 
 }

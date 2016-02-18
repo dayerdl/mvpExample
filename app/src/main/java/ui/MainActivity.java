@@ -1,4 +1,4 @@
-package com.dayerdl.firstround.mvpcountrylist;
+package ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,16 +7,25 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import butterknife.Bind;
-import presenter.MainPresenter;
-import presenter.impl.MainPresenterImpl;
+import com.dayerdl.firstround.mvpcountrylist.R;
 
-public class MainActivity extends AppCompatActivity implements MainPresenter.View {
+import java.util.List;
+
+import butterknife.Bind;
+import iteractors.ItemIteractor;
+import iteractors.impl.ItemIteractorImpl;
+import model.Item;
+import presenter.ItemsPresenter;
+import presenter.impl.ItemsPresenterImpl;
+import repositories.ItemsRepository;
+import repositories.impl.ItemsRepositoryImpl;
+
+public class MainActivity extends AppCompatActivity implements ItemsPresenter.View {
 
     @Bind(R.id.button_load_countries)
     Button mButtonLoad;
 
-    MainPresenterImpl mMainPresenter;
+    ItemsPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,13 +35,21 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
         init();
     }
 
+    @Override
+    protected void onStop() {
+        presenter.stop();
+        super.onStop();
+    }
+
     private void init() {
-        mMainPresenter = new MainPresenterImpl(this);
+        ItemsRepository repository = new ItemsRepositoryImpl();
+        ItemIteractor interactor = new ItemIteractorImpl(repository);
+        presenter = new ItemsPresenterImpl(this, interactor);
 
         mButtonLoad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mMainPresenter.getCountryList();
+                presenter.getItemsList();
             }
         });
     }
@@ -60,11 +77,6 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
     }
 
     @Override
-    public void showCountryList() {
-
-    }
-
-    @Override
     public void showProgress() {
 
     }
@@ -76,6 +88,16 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
 
     @Override
     public void showError(String message) {
+
+    }
+
+    @Override
+    public void showItems(List<Item> list) {
+
+    }
+
+    @Override
+    public void showNoEntriesView() {
 
     }
 }

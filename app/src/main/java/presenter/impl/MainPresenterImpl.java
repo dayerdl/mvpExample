@@ -1,8 +1,7 @@
 package presenter.impl;
 
-import iteractors.CountryIteractor;
-import iteractors.impl.CountryIteractorImpl;
-import presenter.MainPresenter;
+import iteractors.ItemIteractor;
+import iteractors.impl.ItemIteractorImpl;
 
 /**
  * Created by david on 2/16/16.
@@ -10,16 +9,15 @@ import presenter.MainPresenter;
 public class MainPresenterImpl implements MainPresenter {
 
     MainPresenter.View mView;
+    ItemIteractor iteractor;
 
-    CountryIteractor iteractor;
-
-    public MainPresenterImpl(View mView) {
+    public MainPresenterImpl(View mView, ItemIteractor iteractor) {
         this.mView = mView;
     }
 
     @Override
     public void getCountryList() {
-        iteractor = new CountryIteractorImpl();
+        iteractor = new ItemIteractorImpl(iteractor,mView);
 
     }
 
