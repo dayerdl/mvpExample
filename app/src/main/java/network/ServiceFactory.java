@@ -13,6 +13,7 @@ public class ServiceFactory {
     public static <T> T createRetrofitService(final Class<T> clazz, final String endPoint) {
         final RestAdapter restAdapter = new RestAdapter.Builder()
                 .setEndpoint(endPoint)
+                .setLogLevel(RestAdapter.LogLevel.FULL)
                 .build();
         T service = restAdapter.create(clazz);
 

@@ -13,5 +13,5 @@ public interface RestService {
     String SERVICE_ENDPOINT = "https://api.github.com";
 
     @GET("/users/{login}")
-    Observable<Item> getUser(@Path("login") String login);
+    Observable<Github> getUser(@Path("login") String login);
 }

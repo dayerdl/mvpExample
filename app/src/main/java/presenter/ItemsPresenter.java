@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Country;
+import model.Github;
 import model.Item;
 import views.BaseView;
 
@@ -13,7 +14,7 @@ import views.BaseView;
 public interface ItemsPresenter extends BasePresenter {
 
     interface View extends BaseView {
-        void showItems(List<Item> list);
+        void showItems(List<Github> list);
 
         void showNoEntriesView();
     }

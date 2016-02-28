@@ -1,17 +1,9 @@
 package iteractors.impl;
 
-import android.util.Log;
-
-import java.util.List;
-
 import iteractors.ItemIteractor;
-import model.Country;
-import model.Item;
+import model.Github;
 import repositories.ItemsRepository;
 import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by david on 2/16/16.
@@ -25,7 +17,7 @@ public class ItemIteractorImpl implements ItemIteractor {
     }
 
     @Override
-    public Observable<List<Item>> getItems() {
+    public Observable<Github> getItems() {
 
         return mItemsRepository.getItems();
 

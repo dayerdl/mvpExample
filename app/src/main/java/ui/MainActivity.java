@@ -2,6 +2,7 @@ package ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -9,11 +10,16 @@ import android.widget.Button;
 
 import com.dayerdl.firstround.mvpcountrylist.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import adapters.CardAdapter;
 import butterknife.Bind;
+
+import butterknife.ButterKnife;
 import iteractors.ItemIteractor;
 import iteractors.impl.ItemIteractorImpl;
+import model.Github;
 import model.Item;
 import presenter.ItemsPresenter;
 import presenter.impl.ItemsPresenterImpl;
@@ -22,15 +28,20 @@ import repositories.impl.ItemsRepositoryImpl;
 
 public class MainActivity extends AppCompatActivity implements ItemsPresenter.View {
 
-    @Bind(R.id.button_load_countries)
+    @Bind(R.id.button_fetch)
     Button mButtonLoad;
 
+    @Bind(R.id.recycler_view)
+    RecyclerView mRecyclerView;
+
     ItemsPresenter presenter;
+    CardAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
         init();
     }
@@ -52,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements ItemsPresenter.Vi
                 presenter.getItemsList();
             }
         });
+        adapter = new CardAdapter();
+        mRecyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -92,7 +105,8 @@ public class MainActivity extends AppCompatActivity implements ItemsPresenter.Vi
     }
 
     @Override
-    public void showItems(List<Item> list) {
+    public void showItems(List<Github> list) {
+        adapter.addData((ArrayList<Github>) list);
 
     }
 
