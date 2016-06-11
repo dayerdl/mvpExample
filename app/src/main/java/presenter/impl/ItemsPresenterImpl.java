@@ -11,6 +11,7 @@ import model.Country;
 import model.Github;
 import model.Item;
 import presenter.ItemsPresenter;
+import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -64,30 +65,40 @@ public class ItemsPresenterImpl implements ItemsPresenter {
         if (countrySubscription != null) {
             countrySubscription.unsubscribe();
         }
-        countrySubscription = mIteractor.getItems().observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.newThread()).subscribe(new Subscriber<Github>() {
-                    @Override
-                    public void onCompleted() {
+        countrySubscription = getObservable().subscribe(getSubscriber());
 
-                    }
+    }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        //mView.showConnectionErrorView();
-                        Log.d("TAG", e.toString());
-                    }
+    private Observable<List<Github>> getObservable() {
+        return  mIteractor.getItems()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 
-                    @Override
-                    public void onNext(Github github) {
-                        mView.hideProgress();
-//                        if (feeds.size() > 0) {
-//                            mView.showItems(feeds);
-//                        } else {
-//                            mView.showNoEntriesView();
-//                        }
-                    }
+    private Subscriber<List<Github>> getSubscriber() {
+        return new Subscriber<List<Github>>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+
+            }
+
+            @Override
+            public void onCompleted() {
+                Log.d("ZAXA", "completed");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d("ZAXA", e.toString());
+            }
+
+            @Override
+            public void onNext(List<Github> githubs) {
+                mView.showItems(githubs);
+            }
 
 
-                });
+        };
     }
 }

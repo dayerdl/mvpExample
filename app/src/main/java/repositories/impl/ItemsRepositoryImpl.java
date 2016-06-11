@@ -1,6 +1,8 @@
 package repositories.impl;
 
 
+import java.util.List;
+
 import model.Github;
 import network.RestService;
 import network.ServiceFactory;
@@ -14,7 +16,7 @@ import rx.Subscriber;
 public class ItemsRepositoryImpl implements ItemsRepository {
 
     @Override
-    public Observable<Github> getItems() {
+    public Observable<List<Github>> getItems() {
         // this one should get them from cache or request them
 //        return Observable.create(new Observable.OnSubscribe<Github>() {
 //            @Override
@@ -23,7 +25,7 @@ public class ItemsRepositoryImpl implements ItemsRepository {
 //            }
 //        });
         RestService service = ServiceFactory.createRetrofitService(RestService.class, RestService.SERVICE_ENDPOINT);
-        return service.getUser("linkedin");
+        return service.getUser();
 
     }
 }

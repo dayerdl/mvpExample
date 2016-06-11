@@ -2,6 +2,7 @@ package ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements ItemsPresenter.Vi
     @Bind(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
+
     ItemsPresenter presenter;
     CardAdapter adapter;
 
@@ -53,6 +55,11 @@ public class MainActivity extends AppCompatActivity implements ItemsPresenter.Vi
     }
 
     private void init() {
+
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(llm);
+
         ItemsRepository repository = new ItemsRepositoryImpl();
         ItemIteractor interactor = new ItemIteractorImpl(repository);
         presenter = new ItemsPresenterImpl(this, interactor);
@@ -63,8 +70,7 @@ public class MainActivity extends AppCompatActivity implements ItemsPresenter.Vi
                 presenter.getItemsList();
             }
         });
-        adapter = new CardAdapter();
-        mRecyclerView.setAdapter(adapter);
+
     }
 
     @Override
@@ -106,7 +112,10 @@ public class MainActivity extends AppCompatActivity implements ItemsPresenter.Vi
 
     @Override
     public void showItems(List<Github> list) {
+        adapter = new CardAdapter();
         adapter.addData((ArrayList<Github>) list);
+        mRecyclerView.setAdapter(adapter);
+
 
     }
 

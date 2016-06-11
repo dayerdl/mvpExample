@@ -1,5 +1,7 @@
 package iteractors.impl;
 
+import java.util.List;
+
 import iteractors.ItemIteractor;
 import model.Github;
 import repositories.ItemsRepository;
@@ -17,7 +19,7 @@ public class ItemIteractorImpl implements ItemIteractor {
     }
 
     @Override
-    public Observable<Github> getItems() {
+    public Observable<List<Github>> getItems() {
 
         return mItemsRepository.getItems();
 

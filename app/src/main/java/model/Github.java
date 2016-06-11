@@ -2,18 +2,18 @@ package model;
 
 public class Github extends Item{
     private String login;
-    private String blog;
-    private int public_repos;
+    private String avatar_url;
+    private int id;
 
     public String getLogin() {
         return login;
     }
 
     public String getBlog() {
-        return blog;
+        return avatar_url;
     }
 
     public int getPublicRepos() {
-        return public_repos;
+        return id;
     }
 }

@@ -1,5 +1,7 @@
 package network;
 
+import java.util.List;
+
 import model.Github;
 import model.Item;
 import retrofit.http.GET;
@@ -12,6 +14,6 @@ import rx.Observable;
 public interface RestService {
     String SERVICE_ENDPOINT = "https://api.github.com";
 
-    @GET("/users/{login}")
-    Observable<Github> getUser(@Path("login") String login);
+    @GET("/users")
+    Observable<List<Github>> getUser();
 }

@@ -12,6 +12,6 @@ import rx.Observable;
  * Created by david on 2/16/16.
  */
 public interface ItemIteractor {
-    Observable<Github> getItems();
+    Observable<List<Github>> getItems();
 
 }
